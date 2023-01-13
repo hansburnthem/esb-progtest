@@ -40,9 +40,7 @@ class InvoiceController extends Controller
             $invoice->items()->attach($items[$i], ["qty" => $qtys[$i]]);
         }
 
-        return view('invoices', [
-            'invoices'=>Invoice::with(['forAddress', 'fromAddress'])->get()
-        ]);
+        return redirect('/invoices');
     }
 
     public function destroy($invoice_id)
@@ -53,9 +51,24 @@ class InvoiceController extends Controller
         return redirect('/invoices');
     }
 
-    public function update()
+    public function update(Request $request, $invoice_id)
     {
-        
+        $items = explode(",", $request->items);
+        $qtys = explode(",", $request->qtys);
+
+        $invoice = Invoice::find($invoice_id);
+        $invoice->date = $request->issuedate;
+        $invoice->duedate = $request->duedate;
+        $invoice->subject = $request->subject;
+        $invoice->from = $request->from;
+        $invoice->for = $request->for;
+        $invoice->save();
+
+        $invoice->items()->detach();
+        for ($i=0; $i < count($items); $i++) { 
+            $invoice->items()->attach($items[$i], ["qty" => $qtys[$i]]);
+        }
+        return redirect('/invoices');
     }
 
     public function create()

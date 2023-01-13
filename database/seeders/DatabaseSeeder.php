@@ -58,22 +58,22 @@ class DatabaseSeeder extends Seeder
 
         Invoice::insert([
             [
-                'date' => now(),
-                'duedate' => now(),
+                'date' => date("Y-m-d"),
+                'duedate' => date("Y-m-d"),
                 'subject' => 'Test Invoice 1',
                 'from' => 1,
                 'for' => 2
             ],
             [
-                'date' => now(),
-                'duedate' => now(),
+                'date' => date("Y-m-d"),
+                'duedate' => date("Y-m-d"),
                 'subject' => 'Test Invoice 2',
                 'from' => 1,
                 'for' => 3
             ],
             [
-                'date' => now(),
-                'duedate' => now(),
+                'date' => date("Y-m-d"),
+                'duedate' => date("Y-m-d"),
                 'subject' => 'Test Invoice 3',
                 'from' => 2,
                 'for' => 3
